@@ -44,14 +44,7 @@
 				</span>
 			</p>
 			<p>
-				
-				<span class="w">
-					<label><input tabindex="4" class="checkbox" id="inputPolicy" type="checkbox" /> I agree to the terms</label>
-				</span>
-			</p>
-			
-			<p>
-				<input type="button" tabindex="5" id="buttonSignup" value="Sign up" />
+				<button type="button" tabindex="5" id="buttonSignup">Sign up</button>
 			</p>
 		</div>
 		
@@ -92,7 +85,7 @@
 						{expression: /^.+$/, errormessage: 'Required'}
 					],
 					ajaxRequests: [
-						{ url: 'lib/isUsernameUnique.php', loadingmessage: 'Checking availability...'}
+						{ url: 'dependencies/isUsernameUnique.js', loadingmessage: 'Checking availability...', errormessage:'Username is unavailable'}
 					]
 				});
 				
