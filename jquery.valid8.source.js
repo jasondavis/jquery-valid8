@@ -23,7 +23,7 @@
 					regularExpressions: [],
 					ajaxRequests: [],
 					jsFunctions: [],
-					validationEvents: ['keyup','blur'],
+					validationEvents: ['keyup'],
 					validationFrequency: 1000,
 					values: null,
 					defaultErrorMessage: 'Required'
@@ -109,7 +109,7 @@
 		});
 		
 		if($(el).data('errors').length > 0)
-			onEvent(el,'error',false);
+			onEvent(el,{'valid':false});
 		else if($(el).data('settings').jsFunctions.length > 0) {
 			functionValidation(value, el);
 		}
@@ -117,7 +117,8 @@
 			fileValidation(value, el);
 		}
 		else {
-			onEvent(el,'valid',true);
+			
+			onEvent(el,{'valid':true});
 		}
 						
 	};
@@ -143,12 +144,12 @@
 		});
 		
 		if($(el).data('errors').length > 0)
-			onEvent(el,'error',false);
+			onEvent(el,{'valid':false});
 		else if($(el).data('settings').ajaxRequests.length > 0) {
 			fileValidation(value, el);
 		}
 		else {
-			onEvent(el,'valid',true);
+			onEvent(el,{'valid':true});
 		}
 	};
 	
@@ -175,9 +176,9 @@
 					$(el).data('errors')[$(el).data('errors').length] = data.message || validator.errormessage || "";
 				}
 					if($(el).data('errors').length > 0)
-						onEvent(el,'error',false);
+						onEvent(el,data);
 					else {
-						onEvent(el,'valid',true);
+						onEvent(el,data);
 					}
 			  }, "json");
 		});
@@ -201,25 +202,33 @@
 	function handleLoading(el, validator) {
 		if(validator.loadingmessage){
 			$(el).data('loadings')[$(el).data('loadings').length] = validator.loadingmessage;
-			onEvent(el,'loading',false);
+			onEvent(el,{'valid':null});
 		}
 	};
 	
-	function onEvent(el, event, valid) {
+	function onEvent(el, response) {
 		
-		var capitalizedEvent = event.substring(0,1).toUpperCase() + event.substring(1,event.length),
-			messages = $(el).data(event+'s');
+		if(response.valid === true){
+			messages = $(el).data('valids');
+			$(el).data('valid', response.valid);
+			$(el).trigger('valid',[response,el]);
+		} else if(response.valid === false) {
+			messages = $(el).data('errors');
+			$(el).data('valid', response.valid);
+			$(el).trigger('error',[response,el]);
+		} else {
+			messages = $(el).data('loadings');
+			$(el).trigger('loading',[response,el]);
+		}
 		
-		$(el).data(event, valid);
-		
-		setStatus(el, event);
-		setParentClass(el,event);
+		setParentClass(el,response.valid);
 		setMessage(messages,el);
 		
-		$(el).trigger(event,[messages,el,event]);
+		
 	}
 	
-	function setParentClass(el,className) {
+	function setParentClass(el,valid) {
+		var className = (valid)?'valid':'error';
 		var parent = $(el).parent();
 		parent[0].className = (parent[0].className.replace(/(^\s|(\s*(loading|error|valid)))/g,'') + ' ' + className).replace(/^\s/,'');
 	}
@@ -234,14 +243,6 @@
 	
 		$('#'+elementId).html("");
 		$('#'+elementId).text(messages[0]);
-	};
-	
-	function setStatus(el, status){
-		if(status == 'valid'){
-			$(el).data('valid', true);
-		} else if (status == 'error') {
-			$(el).data('valid', false);
-		}
 	};
 	
 })(jQuery);
