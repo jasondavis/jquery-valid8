@@ -157,7 +157,6 @@
 	
 
 		$.each($(el).data('settings').ajaxRequests, function(i, validator){
-			
 			var v;
 			if(validator.values){
 				if(typeof validator.values == 'function')
@@ -168,19 +167,27 @@
 			
 			handleLoading(el, validator);
 			
-			$.post(validator.url, values,
-			  function(data, textStatus){
-				if(data.valid) {
-					$(el).data('valids')[$(el).data('valids').length] = data.message || validator.validmessage || "";
-				} else {
-					$(el).data('errors')[$(el).data('errors').length] = data.message || validator.errormessage || "";
-				}
-					if($(el).data('errors').length > 0)
-						onEvent(el,data);
-					else {
+			$.ajax({
+				type: 'post',
+				url: validator.url,
+				data: values,
+				dataType: 'json',
+				success: function(data){
+				
+					if(data.valid) {
+						$(el).data('valids')[$(el).data('valids').length] = data.message || validator.validmessage || "";
+					} else {
+						$(el).data('errors')[$(el).data('errors').length] = data.message || validator.errormessage || "";
+					}
+					
+					if($(el).data('errors').length > 0) {
+						onEvent(el,data);	
+					} else {
 						onEvent(el,data);
 					}
-			  }, "json");
+				}
+      		});
+
 		});
 		
 	};
