@@ -11,9 +11,11 @@ body,html { margin: 0; padding: 0; background: #E0F4F8; }
 .form .w label { padding:0; }
 
 /* Validation */
-.w.error { background-color: #EFD8D7; }
-.w.error .input { border-color: #C8A5A5; background: #fff url('gfx/icon_error.png') no-repeat right center; }
+.loading .input { border-color: #C8A5A5; background: #fff url('gfx/icon_loading.gif') no-repeat right center; }
 
-.w.valid { background-color: #A4EFAE; }
-.w.valid .input { border-color: #A5C8A6; background: #fff url('gfx/icon_valid.png') no-repeat right center; }
-.w.valid span { display: none; }
+.error .w { background-color: #EFD8D7; }
+.error .input { border-color: #C8A5A5; background: #fff url('gfx/icon_error.png') no-repeat right center; }
+
+.valid .w { background-color: #A4EFAE; }
+.valid .w .input { border-color: #A5C8A6; background: #fff url('gfx/icon_valid.png') no-repeat right center; }
+.valid .w span { display: none; }
