@@ -49,9 +49,13 @@
                 if (this.type == 'checkbox') {
                     defaultOptions.regularExpressions = [{ expression: /^true$/, errormessage: defaultOptions.defaultErrorMessage}];
                     defaultOptions.validationEvents = ['click'];
-                } else
+                } else if(this.type == 'select-one' || this.type == 'select-multiple'){
+                	defaultOptions.regularExpressions = [{ expression: /^.+$/, errormessage: defaultOptions.defaultErrorMessage}];
+                	defaultOptions.validationEvents = ['change'];
+                } else {
                     defaultOptions.regularExpressions = [{ expression: /^.+$/, errormessage: defaultOptions.defaultErrorMessage}];
-
+				}
+				
                 $(this).data('settings', $.extend(defaultOptions, options));
 				
 				if( collection.length-1 == index ) {
@@ -121,10 +125,12 @@
         initializeDataObject( element );
 
         var value;
-
+		
         // Handle checkbox
         if (element.type == 'checkbox') {
             value = element.checked.toString();
+        } else if(element.type == 'select-one'){
+       		//
         } else {
             value = element.value;
 		}
@@ -133,11 +139,12 @@
     };
 
     function regexpValidation(value, el) {
-	
+
         $.each($(el).data('settings').regularExpressions, function (i, validator) {
-            if (!validator.expression.test(value))
+
+            if (!validator.expression.test(value)){
                 $(el).data('errors')[$(el).data('errors').length] = validator.errormessage;
-            else if (validator.validmessage)
+            } else if (validator.validmessage)
                 $(el).data('valids')[$(el).data('valids').length] = validator.validmessage;
         });
 
