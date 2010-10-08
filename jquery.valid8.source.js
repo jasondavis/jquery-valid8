@@ -55,7 +55,6 @@
                 $(this).data('settings', $.extend(defaultOptions, options));
 				
 				if( collection.length-1 == index ) {
-					console.log(this);
 					$(this).data('end', true);
                 }
                 
@@ -281,7 +280,6 @@
     function setParentClass(el, valid) {
         var className = (valid) ? 'valid' : 'error';
         if(valid == null){
-        	console.log('NULL');
     		className = 'loading';
     	}
         var parent = $(el).closest('p');

@@ -18,7 +18,6 @@
 		<div class="form">
 			<p>
 				<label>Username</label>
-
 				<span class="w">
 					<input tabindex="1" class="input" id="inputUsername" value="jarfalk" type="text" />
 				</span>
@@ -54,19 +53,26 @@
 			// <![CDATA[	
 			$(document).ready(function(){				
 				
-				// Set focus to first input
-				$('#inputUsername').focus();
+				// Username is required and must be unique
+				/*$('#inputUsername').valid8({
+					regularExpressions: [
+						{expression: /^.+$/, errormessage: 'Required'}
+					],
+					ajaxRequests: [
+						{ url: 'dependencies/isUsernameUnique.php', errormessage:'Username is unavailable'}
+					]
+				});*/
+				
+				// Password is required
+				//$('#inputPassword').valid8();
 				
 				// Custom validator (checks if password == confirm password)
-				function confirmPassword(args){
+				/*function confirmPassword(args){
 					if(args.password == args.check)
 						return {valid:true}
 					else
 						return {valid:false, message:'Passwords does not match'}
 				}
-				
-				// Username is required
-				$('#inputPassword').valid8();
 				
 				// Confirm password must match Password
 				$('#inputConfirmPassword').valid8({
@@ -78,31 +84,24 @@
 							return {password: $('#inputPassword').val(), check: $('#inputConfirmPassword').val()}
 						}}
 					]
-				});
+				});*/
 				
+				/*$('#inputEmail').bind('valid',function(el, response){
+					alert('WOOHOO');
+				});*/
 				
-				$('#inputUsername').valid8({
+				/*$('#inputEmail').valid8({
 					regularExpressions: [
-						{expression: /^.+$/, errormessage: 'Required'}
-					],
-					ajaxRequests: [
-						{ url: 'dependencies/isUsernameUnique.php', errormessage:'Username is unavailable'}
+						{expression: /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(aero|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel.ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cu|cv|cx|cy|cz|de|dj|dk|dm|do|dz|ec|ee|eg|er|es|et|eu|fi|fj|fk|fm|.fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|.il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|st|su|sv|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)\b$/, errormessage: 'You sure it is valid? The next step in this registration will be sent to the email you enter here.'}
 					]
-				});
-				
-				
-				$('#inputEmail').bind('valid',function(el, response){
-					//console.log('AA')
-				});
-				
-				$('#inputEmail').valid8();
+				});*/
 				
 				
 				
 				// Check if all input fields are valid
-				$('#buttonSignup').click(function(){
+				/*$('#buttonSignup').click(function(){
 					alert('Are input fields valid? ' + $('#inputPassword, #inputUsername, #inputConfirmPassword, #inputEmail').isValid() );
-			});
+			});*/
 
 
 
