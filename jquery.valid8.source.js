@@ -130,7 +130,7 @@
         if (element.type == 'checkbox') {
             value = element.checked.toString();
         } else if(element.type == 'select-one'){
-       		//
+       		value = element.value;
         } else {
             value = element.value;
 		}
