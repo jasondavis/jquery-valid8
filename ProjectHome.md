@@ -1,0 +1,1 @@
+Valid8 makes simple and complex input validation amazingly simple. It features support for input validation using regular expressions, javascript functions and ajax requests.
